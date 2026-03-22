@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\Admin\ActiviteController;
 use App\Http\Controllers\Admin\CompetenceController;
+use App\Http\Controllers\Admin\CompetenceAcquiseController;
+use App\Http\Controllers\Admin\EtudeController;
 use App\Http\Controllers\Admin\StageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CaptureController;
@@ -19,6 +21,7 @@ Route::get('/competences', [PortfolioController::class, 'competences'])->name('p
 Route::get('/activites', [PortfolioController::class, 'activites'])->name('portfolio.activites');
 Route::get('/activites/{slug}', [PortfolioController::class, 'activiteShow'])->name('portfolio.activites.show');
 Route::get('/stages', [PortfolioController::class, 'stages'])->name('portfolio.stages');
+Route::get('/etudes', [PortfolioController::class, 'etudes'])->name('portfolio.etudes');
 Route::get('/contact', [PortfolioController::class, 'contact'])->name('portfolio.contact');
 
 /*
@@ -48,9 +51,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::delete('captures/{capture}', [CaptureController::class, 'destroy'])
         ->name('captures.destroy');
 
-    // Compétences
+    // Compétences B1
     Route::resource('competences', CompetenceController::class)->only(['index', 'edit', 'update']);
+
+    // Compétences acquises CRUD
+    Route::resource('competences-acquises', CompetenceAcquiseController::class);
 
     // Stages CRUD
     Route::resource('stages', StageController::class);
+
+    // Études CRUD
+    Route::resource('etudes', EtudeController::class);
 });

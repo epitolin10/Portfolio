@@ -24,7 +24,7 @@
             </select>
 
             <select name="competence" class="filter-select-pub" onchange="this.form.submit()">
-                <option value="">Toutes les compétences</option>
+                <option value="">Toutes les compétences B1</option>
                 @foreach($competences as $comp)
                     <option value="{{ $comp->id }}" {{ request('competence') == $comp->id ? 'selected' : '' }}>
                         {{ $comp->intitule_court }}

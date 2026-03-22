@@ -13,12 +13,6 @@
             <option value="ap">AP</option>
             <option value="projet">Projet perso</option>
         </select>
-        <select id="filterComp" class="filter-select">
-            <option value="">Toutes les compétences</option>
-            @foreach($competences as $comp)
-                <option value="{{ $comp->id }}">{{ $comp->intitule_court }}</option>
-            @endforeach
-        </select>
     </div>
     <a href="{{ route('admin.activites.create') }}" class="btn btn-primary">
         + Nouvelle activité
@@ -31,7 +25,6 @@
             <tr>
                 <th>Titre</th>
                 <th>Type</th>
-                <th>Compétences</th>
                 <th>Stage / AP</th>
                 <th>Date</th>
                 <th>Visible</th>
@@ -46,13 +39,6 @@
                     <small class="table-sub">{{ Str::limit($activite->description_courte, 60) }}</small>
                 </td>
                 <td><span class="badge badge-{{ $activite->type }}">{{ ucfirst($activite->type) }}</span></td>
-                <td>
-                    <div class="tags-cell">
-                        @foreach($activite->competences as $comp)
-                            <span class="tag-sm">{{ $comp->intitule_court }}</span>
-                        @endforeach
-                    </div>
-                </td>
                 <td>{{ $activite->stage->nom ?? $activite->ap ?? '—' }}</td>
                 <td>{{ $activite->date_realisation->format('d/m/Y') }}</td>
                 <td>
@@ -77,7 +63,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="empty-state">
+                <td colspan="6" class="empty-state">
                     <p>Aucune activité pour l'instant.</p>
                     <a href="{{ route('admin.activites.create') }}" class="btn btn-primary">Créer ma première activité</a>
                 </td>

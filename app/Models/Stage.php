@@ -34,6 +34,9 @@ class Stage extends Model
 
     public function getDureeAttribute()
     {
-        return $this->date_debut->diffInWeeks($this->date_fin) . ' semaines';
+        $weeks = (int) round($this->date_debut->diffInWeeks($this->date_fin));
+        $label = $weeks > 1 ? 'semaines' : 'semaine';
+
+        return $weeks . ' ' . $label;
     }
 }

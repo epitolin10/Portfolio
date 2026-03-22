@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Activite;
 use App\Models\Competence;
+use App\Models\CompetenceAcquise;
+use App\Models\Etude;
 use App\Models\Stage;
 use App\Models\Profil;
 
@@ -23,20 +25,30 @@ class PortfolioController extends Controller
         $nbCompetences = Competence::has('activites')->count();
         $nbStages      = Stage::count();
 
+        $competencesAcquises = CompetenceAcquise::orderBy('categorie')
+            ->orderBy('ordre')
+            ->get()
+            ->groupBy('categorie');
+
+        $etudes = Etude::orderBy('ordre')->orderBy('date_debut', 'desc')->get();
+
         return view('index', compact(
             'profil', 'competences', 'activitesRecentes',
-            'nbActivites', 'nbCompetences', 'nbStages'
+            'nbActivites', 'nbCompetences', 'nbStages',
+            'competencesAcquises', 'etudes'
         ));
     }
 
     public function competences()
     {
-        $competences = Competence::with([
-            'activites' => fn($q) => $q->visible()->with('captures'),
-            'sousCompetences'
-        ])->orderBy('ordre')->get();
+        $competences = Competence::with(['sousCompetences'])->orderBy('ordre')->get();
 
-        return view('competence', compact('competences'));
+        $competencesAcquises = CompetenceAcquise::orderBy('categorie')
+            ->orderBy('ordre')
+            ->get()
+            ->groupBy('categorie');
+
+        return view('competence', compact('competences', 'competencesAcquises'));
     }
 
     public function activites()
@@ -78,6 +90,13 @@ class PortfolioController extends Controller
             ->get();
 
         return view('stage', compact('stages'));
+    }
+
+    public function etudes()
+    {
+        $etudes = Etude::orderBy('ordre')->orderBy('date_debut', 'desc')->get();
+
+        return view('etudes', compact('etudes'));
     }
 
     public function contact()

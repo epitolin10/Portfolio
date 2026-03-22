@@ -48,15 +48,17 @@
                 <div class="captures-grid">
                     @foreach($activite->captures as $capture)
                         @if(Str::endsWith($capture->chemin, '.pdf'))
-                            <a href="{{ asset('storage/'.$capture->chemin) }}" target="_blank" class="capture-pdf">
+                            <a href="{{ asset('storage/'.$capture->chemin) }}" target="_blank" rel="noopener noreferrer" class="capture-pdf">
                                 <span class="pdf-icon">📄</span>
                                 <span>{{ $capture->nom ?? 'Document PDF' }}</span>
                             </a>
                         @else
-                            <a href="{{ asset('storage/'.$capture->chemin) }}" target="_blank" class="capture-img-wrap">
+                            <button type="button" class="capture-img-wrap"
+                                    data-lightbox="{{ asset('storage/'.$capture->chemin) }}"
+                                    data-caption="{{ $capture->nom ?? '' }}">
                                 <img src="{{ asset('storage/'.$capture->chemin) }}" alt="{{ $capture->nom }}">
                                 <span class="capture-overlay">🔍 Agrandir</span>
-                            </a>
+                            </button>
                         @endif
                     @endforeach
                 </div>
@@ -158,5 +160,14 @@
     @endif
 
 </section>
+
+{{-- Lightbox modal --}}
+<div id="lightboxOverlay" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Aperçu de la capture" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">&times;</button>
+    <div class="lightbox-content">
+        <img id="lightboxImg" src="" alt="">
+        <p id="lightboxCaption" class="lightbox-caption"></p>
+    </div>
+</div>
 
 @endsection

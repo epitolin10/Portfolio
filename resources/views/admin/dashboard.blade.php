@@ -17,9 +17,17 @@
         <div class="stat-card-icon">◉</div>
         <div class="stat-card-body">
             <span class="stat-card-num">{{ $stats['competences_couvertes'] }}</span>
-            <span class="stat-card-label">Compétences couvertes</span>
+            <span class="stat-card-label">Compétences B1 couvertes</span>
         </div>
         <a href="{{ route('admin.competences.index') }}" class="stat-card-link">Voir →</a>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card-icon">⚡</div>
+        <div class="stat-card-body">
+            <span class="stat-card-num">{{ $stats['competences_acquises'] }}</span>
+            <span class="stat-card-label">Compétences acquises</span>
+        </div>
+        <a href="{{ route('admin.competences-acquises.index') }}" class="stat-card-link">Gérer →</a>
     </div>
     <div class="stat-card">
         <div class="stat-card-icon">◎</div>

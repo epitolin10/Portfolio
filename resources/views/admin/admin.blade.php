@@ -14,7 +14,7 @@
 <aside class="sidebar">
     <div class="sidebar-header">
         <span class="sidebar-logo"><span class="logo-bracket">[</span>Admin<span class="logo-bracket">]</span></span>
-        <p class="sidebar-sub">Portfolio E5</p>
+        <p class="sidebar-sub">Portfolio</p>
     </div>
 
     <nav class="sidebar-nav">

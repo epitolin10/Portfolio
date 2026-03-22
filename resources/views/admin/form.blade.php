@@ -129,42 +129,6 @@
         <div class="form-col form-col-aside">
 
             <div class="form-card">
-                <h3 class="form-card-title">Compétences B1 couvertes <span class="required">*</span></h3>
-                <p class="form-hint-top">Sélectionnez toutes les compétences mises en œuvre dans cette activité.</p>
-
-                @foreach($competences as $comp)
-                <div class="comp-checkbox-group">
-                    <label class="comp-checkbox-label">
-                        <input type="checkbox" name="competences[]"
-                               value="{{ $comp->id }}"
-                               {{ (isset($activite) && $activite->competences->contains($comp->id)) || in_array($comp->id, old('competences', [])) ? 'checked' : '' }}>
-                        <span class="comp-checkbox-custom"></span>
-                        <div class="comp-checkbox-content">
-                            <strong>{{ $comp->intitule_court }}</strong>
-                            <small>{{ $comp->intitule }}</small>
-                        </div>
-                    </label>
-
-                    {{-- Sous-compétences --}}
-                    @if($comp->sous_competences->count())
-                    <div class="sous-comp-list">
-                        @foreach($comp->sous_competences as $sc)
-                        <label class="sous-comp-label">
-                            <input type="checkbox" name="sous_competences[]"
-                                   value="{{ $sc->id }}"
-                                   {{ (isset($activite) && $activite->sousCompetences->contains($sc->id)) ? 'checked' : '' }}>
-                            {{ $sc->intitule }}
-                        </label>
-                        @endforeach
-                    </div>
-                    @endif
-                </div>
-                @endforeach
-
-                @error('competences')<span class="form-error">{{ $message }}</span>@enderror
-            </div>
-
-            <div class="form-card">
                 <h3 class="form-card-title">Options</h3>
                 <label class="toggle-label">
                     <input type="checkbox" name="visible" value="1"

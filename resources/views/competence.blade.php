@@ -6,7 +6,7 @@
 <section class="page-hero">
     <div class="container">
         <span class="section-tag">Bloc B1</span>
-        <h1 class="page-title">Compétences acquises</h1>
+        <h1 class="page-title">Compétences B1</h1>
         <p class="page-desc">Présentation de mes compétences par blocs B1, illustrées par les activités réalisées en stage et en AP.</p>
     </div>
 </section>
@@ -33,54 +33,58 @@
                     <p class="bloc-desc">{{ $comp->description_courte }}</p>
                 </div>
             </div>
-            <div class="bloc-stats">
-                <span class="bloc-count">{{ $comp->activites->count() }} activité(s)</span>
-            </div>
         </div>
 
         {{-- Sous-compétences --}}
         @if($comp->sousCompetences->count())
         <div class="sous-comp-tags">
             @foreach($comp->sousCompetences as $sc)
-                <span class="sc-tag {{ $comp->activites->whereIn('id', $sc->activites->pluck('id') ?? [])->count() ? 'sc-tag--active' : '' }}">
+                <span class="sc-tag">
                     {{ $sc->intitule }}
                 </span>
             @endforeach
         </div>
         @endif
 
-        {{-- Activités liées --}}
-        @if($comp->activites->count())
-        <div class="bloc-activites">
-            @foreach($comp->activites as $activite)
-            <a href="{{ route('portfolio.activites.show', $activite->slug) }}" class="mini-card">
-                <div class="mini-card-top">
-                    <span class="activite-type {{ $activite->type }}">{{ ucfirst($activite->type) }}</span>
-                    <span class="activite-date">{{ $activite->date_realisation->format('M Y') }}</span>
-                </div>
-                <h3>{{ $activite->titre }}</h3>
-                <p>{{ Str::limit($activite->description_courte, 100) }}</p>
-                @if($activite->outils)
-                <div class="mini-card-tools">
-                    @foreach(explode(',', $activite->outils) as $outil)
-                        <span class="tool-tag">{{ trim($outil) }}</span>
-                    @endforeach
-                </div>
-                @endif
-                <span class="mini-card-link">Voir le détail →</span>
-            </a>
-            @endforeach
-        </div>
-        @else
-        <div class="bloc-empty">
-            <p>Aucune activité associée à ce bloc pour le moment.</p>
-        </div>
-        @endif
+
 
     </div>
     @endforeach
 
 </section>
+
+{{-- Compétences acquises (skills techniques) --}}
+@if($competencesAcquises->count())
+<section class="section-skills">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Compétences</span>
+            <h2>Compétences acquises</h2>
+            <p class="page-desc" style="margin-top:.5rem;">Les technologies et outils que je maîtrise.</p>
+        </div>
+
+        <div class="skills-categories">
+            @foreach($competencesAcquises as $categorie => $items)
+            <div class="skills-category">
+                <h3 class="skills-cat-title">{{ $categorie }}</h3>
+                <div class="skills-list">
+                    @foreach($items as $ca)
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            @if($ca->image)
+                                <img src="{{ asset('storage/'.$ca->image) }}" alt="{{ $ca->nom }}" class="skill-icon-img">
+                            @endif
+                            <span class="skill-name">{{ $ca->nom }}</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
 @endsection
 

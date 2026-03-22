@@ -15,7 +15,7 @@
             <span class="hero-name">{{ $profil->nom ?? 'Enzo Pitolin' }}</span>
         </h1>
         <p class="hero-desc">
-            {{ $profil->bio ?? 'Étudiant en BTS Services Informatiques aux Organisations. Ce portfolio retrace mes compétences et réalisations professionnelles dans le cadre de l\'épreuve E5.' }}
+            {{ $profil->bio ?? 'Étudiant en BTS Services Informatiques aux Organisations. Ce portfolio retrace mes compétences et réalisations professionnelles dans le cadre de mes études.' }}
         </p>
         <div class="hero-actions">
             <a href="{{ route('portfolio.competences') }}" class="btn btn-primary">Voir mes compétences</a>
@@ -47,11 +47,40 @@
     </div>
 </section>
 
+{{-- Compétences acquises --}}
+@if($competencesAcquises->count())
+<section class="section-skills-home">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Compétences</span>
+            <h2>Mes compétences</h2>
+        </div>
+        <div class="skills-home-grid">
+            @foreach($competencesAcquises as $categorie => $items)
+            <div class="skills-home-cat">
+                <h3 class="skills-home-cat-title">{{ $categorie }}</h3>
+                <div class="skills-home-items">
+                    @foreach($items as $ca)
+                    <span class="skill-chip">
+                        @if($ca->image)
+                            <img src="{{ asset('storage/'.$ca->image) }}" alt="{{ $ca->nom }}" class="skill-chip-img">
+                        @endif
+                        {{ $ca->nom }}
+                    </span>
+                    @endforeach
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
 <section class="section-competences-preview">
     <div class="container">
         <div class="section-header">
             <span class="section-tag">Blocs B1</span>
-            <h2>Compétences couvertes</h2>
+            <h2>Compétences B1</h2>
         </div>
         <div class="competences-grid">
             @foreach($competences as $comp)
@@ -59,7 +88,7 @@
                 <div class="comp-card-icon">{{ $comp->icone ?? '◈' }}</div>
                 <h3>{{ $comp->intitule }}</h3>
                 <p>{{ $comp->description_courte }}</p>
-                <span class="comp-card-count">{{ $comp->activites_count }} activité(s)</span>
+                
             </a>
             @endforeach
         </div>
@@ -92,5 +121,40 @@
         </div>
     </div>
 </section>
+
+{{-- Études --}}
+@if($etudes->count())
+<section class="section-skills-home">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Parcours académique</span>
+            <h2>Mes études</h2>
+            <a href="{{ route('portfolio.etudes') }}" class="see-all">Voir tout →</a>
+        </div>
+        <div class="activites-list">
+            @foreach($etudes as $etude)
+            <div class="activite-card" style="cursor:default">
+                <div class="activite-card-meta">
+                    @if($etude->niveau)
+                        <span class="activite-type ap">{{ $etude->niveau }}</span>
+                    @endif
+                    <span class="activite-date">{{ $etude->duree }}</span>
+                </div>
+                <h3>{{ $etude->intitule }}</h3>
+                <p>{{ $etude->etablissement }}@if($etude->ville) — {{ $etude->ville }}@endif</p>
+                <div class="activite-tags">
+                    @if($etude->en_cours)
+                        <span class="tag" style="background:rgba(var(--color-accent-rgb),.15); color:var(--color-accent);">En cours</span>
+                    @endif
+                    @if($etude->mention)
+                        <span class="tag">{{ $etude->mention }}</span>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
 @endsection

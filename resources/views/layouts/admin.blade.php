@@ -23,11 +23,17 @@
         <a href="{{ route('admin.activites.index') }}" class="sidebar-link {{ request()->routeIs('admin.activites*') ? 'active' : '' }}">
             <span class="icon">◈</span> Activités
         </a>
-        <a href="{{ route('admin.competences.index') }}" class="sidebar-link {{ request()->routeIs('admin.competences*') ? 'active' : '' }}">
-            <span class="icon">◉</span> Compétences
+        <a href="{{ route('admin.competences.index') }}" class="sidebar-link {{ request()->routeIs('admin.competences.index') || request()->routeIs('admin.competences.edit') || request()->routeIs('admin.competences.update') ? 'active' : '' }}">
+            <span class="icon">◉</span> Compétences B1
+        </a>
+        <a href="{{ route('admin.competences-acquises.index') }}" class="sidebar-link {{ request()->routeIs('admin.competences-acquises*') ? 'active' : '' }}">
+            <span class="icon">⚡</span> Compétences acquises
         </a>
         <a href="{{ route('admin.stages.index') }}" class="sidebar-link {{ request()->routeIs('admin.stages*') ? 'active' : '' }}">
             <span class="icon">◎</span> Stages
+        </a>
+        <a href="{{ route('admin.etudes.index') }}" class="sidebar-link {{ request()->routeIs('admin.etudes*') ? 'active' : '' }}">
+            <span class="icon">🎓</span> Études
         </a>
         <div class="sidebar-divider"></div>
         <a href="{{ route('portfolio.index') }}" class="sidebar-link" target="_blank">
