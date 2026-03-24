@@ -36,7 +36,7 @@
                 <a href="{{ route('portfolio.activites') }}" class="filter-reset">✕ Réinitialiser</a>
             @endif
         </div>
-        <span class="filter-count">{{ $activites->total() }} activité(s)</span>
+        <span class="filter-count">{{ $activites->count() }} activité(s)</span>
     </form>
 
     {{-- Grille --}}
@@ -69,11 +69,6 @@
             </div>
         </a>
         @endforeach
-    </div>
-
-    {{-- Pagination --}}
-    <div class="pagination-pub">
-        {{ $activites->appends(request()->query())->links() }}
     </div>
 
     @else

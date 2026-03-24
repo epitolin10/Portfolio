@@ -60,7 +60,7 @@ class PortfolioController extends Controller
             ->when(request('type'), fn($q) => $q->byType(request('type')))
             ->when(request('competence'), fn($q) => $q->byCompetence(request('competence')))
             ->latest('date_realisation')
-            ->paginate(9);
+            ->get();
 
         return view('activites', compact('activites', 'competences'));
     }
