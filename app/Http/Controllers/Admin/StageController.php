@@ -13,7 +13,7 @@ class StageController extends Controller
     {
         $stages = Stage::withCount('activites')
             ->orderBy('date_debut', 'desc')
-            ->paginate(10);
+            ->get();
 
         return view('admin.stage.index', compact('stages'));
     }

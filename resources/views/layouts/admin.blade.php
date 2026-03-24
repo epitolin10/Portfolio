@@ -35,6 +35,9 @@
         <a href="{{ route('admin.etudes.index') }}" class="sidebar-link {{ request()->routeIs('admin.etudes*') ? 'active' : '' }}">
             <span class="icon">🎓</span> Études
         </a>
+        <a href="{{ route('admin.profil.edit') }}" class="sidebar-link {{ request()->routeIs('admin.profil*') ? 'active' : '' }}">
+            <span class="icon">👤</span> Mon profil
+        </a>
         <div class="sidebar-divider"></div>
         <a href="{{ route('portfolio.index') }}" class="sidebar-link" target="_blank">
             <span class="icon">↗</span> Voir le portfolio

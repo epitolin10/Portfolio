@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\EtudeController;
 use App\Http\Controllers\Admin\StageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CaptureController;
+use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -62,4 +63,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
     // Études CRUD
     Route::resource('etudes', EtudeController::class);
+
+    // Profil
+    Route::get('profil', [ProfilController::class, 'edit'])->name('profil.edit');
+    Route::put('profil', [ProfilController::class, 'update'])->name('profil.update');
 });

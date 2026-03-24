@@ -73,10 +73,6 @@
     </table>
 </div>
 
-<div class="pagination-wrapper">
-    {{ $activites->links() }}
-</div>
-
 @endsection
 
 @push('scripts')

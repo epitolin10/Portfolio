@@ -15,7 +15,7 @@ class ActiviteController extends Controller
     {
         $activites = Activite::with(['stage'])
             ->latest('date_realisation')
-            ->paginate(10);
+            ->get();
 
         return view('admin.index', compact('activites'));
     }
