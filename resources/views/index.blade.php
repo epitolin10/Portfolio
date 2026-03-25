@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Accueil')
-@section('author', $profil->nom ?? 'Enzo Pitolin')
+@section('author', ($profil->prenom ?? '') . ' ' . ($profil->nom ?? 'Enzo Pitolin'))
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <div class="hero-tag">BTS SIO — Option SLAM</div>
         <h1 class="hero-title">
             <span class="hero-hi">Bonjour, je suis</span>
-            <span class="hero-name">{{ $profil->nom ?? 'Enzo Pitolin' }}</span>
+            <span class="hero-name">{{ ($profil->prenom ?? '') . ' ' . ($profil->nom ?? 'Enzo Pitolin') }}</span>
         </h1>
         <p class="hero-desc">
             {{ $profil->bio ?? 'Étudiant en BTS Services Informatiques aux Organisations. Ce portfolio retrace mes compétences et réalisations professionnelles dans le cadre de mes études.' }}
