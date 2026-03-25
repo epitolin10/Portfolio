@@ -79,32 +79,6 @@
         {{-- SIDEBAR --}}
         <aside class="activite-sidebar">
 
-            {{-- Compétences --}}
-            <div class="sidebar-card">
-                <h3>Compétences B1 mobilisées</h3>
-                @foreach($activite->competences as $comp)
-                <div class="comp-item">
-                    <span class="comp-item-icon">{{ $comp->icone }}</span>
-                    <div>
-                        <strong>{{ $comp->intitule_court }}</strong>
-                        <small>{{ $comp->intitule }}</small>
-                    </div>
-                </div>
-
-                {{-- Sous-compétences associées --}}
-                @php
-                    $sousComp = $activite->sousCompetences->where('competence_id', $comp->id);
-                @endphp
-                @if($sousComp->count())
-                <ul class="sc-list">
-                    @foreach($sousComp as $sc)
-                        <li>{{ $sc->intitule }}</li>
-                    @endforeach
-                </ul>
-                @endif
-                @endforeach
-            </div>
-
             {{-- Outils --}}
             @if($activite->outils)
             <div class="sidebar-card">
@@ -164,10 +138,13 @@
 {{-- Lightbox modal --}}
 <div id="lightboxOverlay" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Aperçu de la capture" hidden>
     <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Image précédente" hidden>&#8249;</button>
     <div class="lightbox-content">
         <img id="lightboxImg" src="" alt="">
         <p id="lightboxCaption" class="lightbox-caption"></p>
+        <p id="lightboxCounter" class="lightbox-counter"></p>
     </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Image suivante" hidden>&#8250;</button>
 </div>
 
 @endsection

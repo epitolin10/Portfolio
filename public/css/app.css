@@ -506,6 +506,20 @@ body {
   cursor: pointer; transition: background .15s, color .15s;
 }
 .lightbox-close:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.lightbox-nav {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text); font-size: 2.5rem; line-height: 1;
+  width: 3rem; height: 3rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .15s, color .15s;
+  z-index: 1001; user-select: none;
+}
+.lightbox-nav[hidden] { display: none; }
+.lightbox-nav:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.lightbox-prev { left: 1.5rem; }
+.lightbox-next { right: 1.5rem; }
+.lightbox-counter { color: var(--text-muted); font-size: .8rem; text-align: center; min-height: 1em; }
 .pdf-icon { font-size: 1.5rem; }
 .activite-link { margin-top: 1.5rem; }
 
