@@ -63,7 +63,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     // Stages CRUD
     Route::resource('stages', StageController::class);
 
-    // AP (Activités Professionnelles) CRUD
+    // AP (Atelier de Professionalisation) CRUD
     Route::resource('ap', EntrepriseApController::class);
 
     // Études CRUD

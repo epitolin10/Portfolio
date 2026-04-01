@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', 'Activités Professionnelles')
+@section('title', 'Atelier de Professionalisation')
 
 @section('content')
 
 <section class="page-hero">
     <div class="container">
         <span class="section-tag">Parcours</span>
-        <h1 class="page-title">Activités Professionnelles</h1>
-        <p class="page-desc">Présentation des entreprises et des missions réalisées dans le cadre des activités professionnelles.</p>
+        <h1 class="page-title">Atelier de Professionalisation</h1>
+        <p class="page-desc">Présentation des entreprises et des missions réalisées dans le cadre des Atelier de Professionalisation.</p>
     </div>
 </section>
 

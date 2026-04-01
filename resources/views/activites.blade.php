@@ -6,7 +6,7 @@
 <section class="page-hero">
     <div class="container">
         <span class="section-tag">Option B</span>
-        <h1 class="page-title">Mes activités professionnelles</h1>
+        <h1 class="page-title">Mes Atelier de Professionalisation</h1>
         <p class="page-desc">Ensemble des réalisations effectuées durant mes stages et ateliers de professionnalisation.</p>
     </div>
 </section>

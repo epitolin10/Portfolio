@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('page-title', 'Activités Professionnelles')
+@section('page-title', 'Atelier de Professionalisation')
 
 @section('content')
 
