@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Activite;
 use App\Models\Competence;
 use App\Models\CompetenceAcquise;
+use App\Models\EntrepriseAp;
 use App\Models\Etude;
 use App\Models\Stage;
 use App\Models\Profil;
@@ -90,6 +91,15 @@ class PortfolioController extends Controller
             ->get();
 
         return view('stage', compact('stages'));
+    }
+
+    public function ap()
+    {
+        $entreprises = EntrepriseAp::with(['activites' => fn($q) => $q->visible()->with('competences')])
+            ->orderBy('nom')
+            ->get();
+
+        return view('ap', compact('entreprises'));
     }
 
     public function etudes()

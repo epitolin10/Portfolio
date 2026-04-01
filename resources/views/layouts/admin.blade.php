@@ -32,6 +32,9 @@
         <a href="{{ route('admin.stages.index') }}" class="sidebar-link {{ request()->routeIs('admin.stages*') ? 'active' : '' }}">
             <span class="icon">◎</span> Stages
         </a>
+        <a href="{{ route('admin.ap.index') }}" class="sidebar-link {{ request()->routeIs('admin.ap*') ? 'active' : '' }}">
+            <span class="icon">🏭</span> AP
+        </a>
         <a href="{{ route('admin.etudes.index') }}" class="sidebar-link {{ request()->routeIs('admin.etudes*') ? 'active' : '' }}">
             <span class="icon">🎓</span> Études
         </a>

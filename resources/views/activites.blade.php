@@ -23,15 +23,7 @@
                 <option value="projet" {{ request('type') == 'projet' ? 'selected' : '' }}>Projet perso</option>
             </select>
 
-            <select name="competence" class="filter-select-pub" onchange="this.form.submit()">
-                <option value="">Toutes les compétences B1</option>
-                @foreach($competences as $comp)
-                    <option value="{{ $comp->id }}" {{ request('competence') == $comp->id ? 'selected' : '' }}>
-                        {{ $comp->intitule_court }}
-                    </option>
-                @endforeach
-            </select>
-
+            
             @if(request('type') || request('competence'))
                 <a href="{{ route('portfolio.activites') }}" class="filter-reset">✕ Réinitialiser</a>
             @endif

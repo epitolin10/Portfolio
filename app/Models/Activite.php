@@ -23,6 +23,7 @@ class Activite extends Model
         'visible',
         'mise_en_avant',
         'stage_id',
+        'entreprise_ap_id',
     ];
 
     protected $casts = [
@@ -44,6 +45,11 @@ class Activite extends Model
     public function stage()
     {
         return $this->belongsTo(Stage::class);
+    }
+
+    public function entrepriseAp()
+    {
+        return $this->belongsTo(EntrepriseAp::class, 'entreprise_ap_id');
     }
 
     public function competences()

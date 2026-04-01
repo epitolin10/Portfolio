@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Activite;
+use App\Models\EntrepriseAp;
 use App\Models\Stage;
 use App\Models\Capture;
 use Illuminate\Support\Facades\Storage;
@@ -23,8 +24,9 @@ class ActiviteController extends Controller
     public function create()
     {
         $stages = Stage::orderBy('date_debut', 'desc')->get();
+        $entreprisesAp = EntrepriseAp::orderBy('nom')->get();
 
-        return view('admin.form', compact('stages'));
+        return view('admin.form', compact('stages', 'entreprisesAp'));
     }
 
     public function store(Request $request)
@@ -39,6 +41,7 @@ class ActiviteController extends Controller
             'lien_externe' => 'nullable|url|max:500',
             'ap' => 'nullable|string|max:255',
             'stage_id' => 'nullable|exists:stages,id',
+            'entreprise_ap_id' => 'nullable|exists:entreprises_ap,id',
             'captures' => 'nullable|array|max:5',
             'captures.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
             'visible' => 'nullable',
@@ -71,8 +74,9 @@ class ActiviteController extends Controller
     {
         $activite->load(['captures']);
         $stages = Stage::orderBy('date_debut', 'desc')->get();
+        $entreprisesAp = EntrepriseAp::orderBy('nom')->get();
 
-        return view('admin.form', compact('activite', 'stages'));
+        return view('admin.form', compact('activite', 'stages', 'entreprisesAp'));
     }
 
     public function show(Activite $activite)
@@ -92,6 +96,7 @@ class ActiviteController extends Controller
             'lien_externe' => 'nullable|url|max:500',
             'ap' => 'nullable|string|max:255',
             'stage_id' => 'nullable|exists:stages,id',
+            'entreprise_ap_id' => 'nullable|exists:entreprises_ap,id',
             'captures' => 'nullable|array|max:5',
             'captures.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
             'visible' => 'nullable',

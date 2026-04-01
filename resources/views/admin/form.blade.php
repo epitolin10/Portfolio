@@ -83,6 +83,24 @@
                            placeholder="Ex : AP réseau – semestre 3"
                            class="form-input">
                 </div>
+
+                <div class="form-group" id="entrepriseApGroup" style="display:none">
+                    <label for="entreprise_ap_id">Entreprise AP associée</label>
+                    <select id="entreprise_ap_id" name="entreprise_ap_id" class="form-input form-select">
+                        <option value="">— Aucune —</option>
+                        @foreach($entreprisesAp ?? [] as $entrepriseAp)
+                            <option value="{{ $entrepriseAp->id }}"
+                                {{ old('entreprise_ap_id', $activite->entreprise_ap_id ?? '') == $entrepriseAp->id ? 'selected' : '' }}>
+                                {{ $entrepriseAp->nom }}{{ $entrepriseAp->ville ? ' ('.$entrepriseAp->ville.')' : '' }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @if(($entreprisesAp ?? collect())->isEmpty())
+                        <small class="form-hint">
+                            <a href="{{ route('admin.ap.create') }}" target="_blank">Créer une entreprise AP</a> d'abord.
+                        </small>
+                    @endif
+                </div>
             </div>
 
             <div class="form-card">
@@ -163,10 +181,12 @@
 const typeSelect = document.getElementById('type');
 const stageGroup = document.getElementById('stageGroup');
 const apGroup = document.getElementById('apGroup');
+const entrepriseApGroup = document.getElementById('entrepriseApGroup');
 
 function updateTypeVisibility() {
     stageGroup.style.display = typeSelect.value === 'stage' ? '' : 'none';
     apGroup.style.display = typeSelect.value === 'ap' ? '' : 'none';
+    entrepriseApGroup.style.display = typeSelect.value === 'ap' ? '' : 'none';
 }
 
 typeSelect.addEventListener('change', updateTypeVisibility);

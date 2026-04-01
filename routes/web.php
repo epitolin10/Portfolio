@@ -5,6 +5,7 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\Admin\ActiviteController;
 use App\Http\Controllers\Admin\CompetenceController;
 use App\Http\Controllers\Admin\CompetenceAcquiseController;
+use App\Http\Controllers\Admin\EntrepriseApController;
 use App\Http\Controllers\Admin\EtudeController;
 use App\Http\Controllers\Admin\StageController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -22,6 +23,7 @@ Route::get('/competences', [PortfolioController::class, 'competences'])->name('p
 Route::get('/activites', [PortfolioController::class, 'activites'])->name('portfolio.activites');
 Route::get('/activites/{slug}', [PortfolioController::class, 'activiteShow'])->name('portfolio.activites.show');
 Route::get('/stages', [PortfolioController::class, 'stages'])->name('portfolio.stages');
+Route::get('/ap', [PortfolioController::class, 'ap'])->name('portfolio.ap');
 Route::get('/etudes', [PortfolioController::class, 'etudes'])->name('portfolio.etudes');
 Route::get('/contact', [PortfolioController::class, 'contact'])->name('portfolio.contact');
 
@@ -60,6 +62,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
     // Stages CRUD
     Route::resource('stages', StageController::class);
+
+    // AP (Activités Professionnelles) CRUD
+    Route::resource('ap', EntrepriseApController::class);
 
     // Études CRUD
     Route::resource('etudes', EtudeController::class);

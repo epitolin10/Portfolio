@@ -28,6 +28,7 @@
             <li><a href="{{ route('portfolio.competences') }}" class="{{ request()->routeIs('portfolio.competences') ? 'active' : '' }}">Compétences B1</a></li>
             <li><a href="{{ route('portfolio.activites') }}" class="{{ request()->routeIs('portfolio.activites*') ? 'active' : '' }}">Activités</a></li>
             <li><a href="{{ route('portfolio.stages') }}" class="{{ request()->routeIs('portfolio.stages') ? 'active' : '' }}">Stages</a></li>
+            <li><a href="{{ route('portfolio.ap') }}" class="{{ request()->routeIs('portfolio.ap') ? 'active' : '' }}">AP</a></li>
             <li><a href="{{ route('portfolio.etudes') }}" class="{{ request()->routeIs('portfolio.etudes') ? 'active' : '' }}">Mes études</a></li>
             <li><a href="{{ route('portfolio.contact') }}" class="{{ request()->routeIs('portfolio.contact') ? 'active' : '' }}">Contact</a></li>
         </ul>
