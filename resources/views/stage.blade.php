@@ -13,8 +13,25 @@
 
 <section class="container section-spaced">
 
-    @forelse($stages as $index => $stage)
-    <div class="stage-block">
+    @php $total = $stages->count(); @endphp
+
+    @if($total === 0)
+        <div class="empty-pub">
+            <p>Aucun stage renseigné pour le moment.</p>
+        </div>
+    @else
+
+    {{-- Navigation entre stages --}}
+    @if($total > 1)
+    <div class="stage-nav">
+        <button id="btn-prev" class="btn btn-outline" onclick="changeStage(-1)" disabled>← Stage précédent</button>
+        <span class="stage-nav-indicator" id="stage-indicator">Stage <span id="stage-current">1</span> / {{ $total }}</span>
+        <button id="btn-next" class="btn btn-outline" onclick="changeStage(1)">Stage suivant →</button>
+    </div>
+    @endif
+
+    @foreach($stages as $index => $stage)
+    <div class="stage-block" id="stage-{{ $index }}" @if($index > 0) style="display:none" @endif>
         <div class="stage-block-header">
             <div class="stage-num">Stage {{ $index + 1 }}</div>
             <div class="stage-block-info">
@@ -50,7 +67,6 @@
         </div>
         @endif
 
-        {{-- Activités du stage --}}
         @if($stage->activites->count())
         <div class="stage-activites">
             <h3>Activités réalisées ({{ $stage->activites->count() }})</h3>
@@ -74,12 +90,29 @@
         @endif
 
     </div>
-    @empty
-    <div class="empty-pub">
-        <p>Aucun stage renseigné pour le moment.</p>
-    </div>
-    @endforelse
+    @endforeach
+
+    @endif
 
 </section>
+
+@if($total > 1)
+@push('scripts')
+<script>
+const total = {{ $total }};
+let current = 0;
+
+function changeStage(direction) {
+    document.getElementById('stage-' + current).style.display = 'none';
+    current += direction;
+    document.getElementById('stage-' + current).style.display = 'block';
+    document.getElementById('stage-current').textContent = current + 1;
+    document.getElementById('btn-prev').disabled = current === 0;
+    document.getElementById('btn-next').disabled = current === total - 1;
+    window.scrollTo({ top: document.querySelector('.stage-nav').offsetTop - 80, behavior: 'smooth' });
+}
+</script>
+@endpush
+@endif
 
 @endsection

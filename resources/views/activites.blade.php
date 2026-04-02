@@ -16,19 +16,29 @@
     {{-- Filtres --}}
     <form method="GET" action="{{ route('portfolio.activites') }}" class="filters-bar">
         <div class="filters-left">
-            <select name="type" class="filter-select-pub" onchange="this.form.submit()">
+            <select name="type" class="filter-select-pub" id="filter-type" onchange="onTypeChange(this)">
                 <option value="">Tous les types</option>
                 <option value="stage"  {{ request('type') == 'stage'  ? 'selected' : '' }}>Stage</option>
                 <option value="ap"     {{ request('type') == 'ap'     ? 'selected' : '' }}>AP</option>
                 <option value="projet" {{ request('type') == 'projet' ? 'selected' : '' }}>Projet perso</option>
             </select>
 
-            
-            @if(request('type') || request('competence'))
+            <select name="stage_id" id="filter-stage" class="filter-select-pub"
+                onchange="this.form.submit()"
+                style="{{ request('type') == 'stage' ? '' : 'display:none' }}">
+                <option value="">Tous les stages</option>
+                @foreach($stages as $i => $s)
+                    <option value="{{ $s->id }}" {{ request('stage_id') == $s->id ? 'selected' : '' }}>
+                        Stage {{ $i + 1 }} — {{ $s->entreprise }}
+                    </option>
+                @endforeach
+            </select>
+
+            @if(request('type') || request('competence') || request('stage_id'))
                 <a href="{{ route('portfolio.activites') }}" class="filter-reset">✕ Réinitialiser</a>
             @endif
         </div>
-        <span class="filter-count">{{ $activites->count() }} activité(s)</span>
+        <span class="filter-count">{{ $activites->total() }} activité(s)</span>
     </form>
 
     {{-- Grille --}}
@@ -70,6 +80,42 @@
     </div>
     @endif
 
+    {{-- Pagination --}}
+    @if($activites->hasPages())
+    <div class="pagination-pub">
+        <div class="pag-inner">
+            @if($activites->onFirstPage())
+                <span class="pag-btn pag-btn--disabled">← Précédent</span>
+            @else
+                <a href="{{ $activites->previousPageUrl() }}" class="pag-btn">← Précédent</a>
+            @endif
+
+            <span class="pag-info">Page {{ $activites->currentPage() }} / {{ $activites->lastPage() }}</span>
+
+            @if($activites->hasMorePages())
+                <a href="{{ $activites->nextPageUrl() }}" class="pag-btn">Suivant →</a>
+            @else
+                <span class="pag-btn pag-btn--disabled">Suivant →</span>
+            @endif
+        </div>
+    </div>
+    @endif
+
 </section>
+
+@push('scripts')
+<script>
+function onTypeChange(sel) {
+    const stageSelect = document.getElementById('filter-stage');
+    if (sel.value === 'stage') {
+        stageSelect.style.display = '';
+    } else {
+        stageSelect.style.display = 'none';
+        stageSelect.value = '';
+    }
+    sel.form.submit();
+}
+</script>
+@endpush
 
 @endsection

@@ -55,15 +55,18 @@ class PortfolioController extends Controller
     public function activites()
     {
         $competences = Competence::orderBy('ordre')->get();
+        $stages = Stage::orderBy('date_debut', 'asc')->get();
 
         $activites = Activite::visible()
             ->with(['competences', 'stage'])
             ->when(request('type'), fn($q) => $q->byType(request('type')))
             ->when(request('competence'), fn($q) => $q->byCompetence(request('competence')))
+            ->when(request('stage_id'), fn($q) => $q->where('stage_id', request('stage_id')))
             ->latest('date_realisation')
-            ->get();
+            ->paginate(6)
+            ->withQueryString();
 
-        return view('activites', compact('activites', 'competences'));
+        return view('activites', compact('activites', 'competences', 'stages'));
     }
 
     public function activiteShow($slug)
@@ -87,7 +90,7 @@ class PortfolioController extends Controller
     public function stages()
     {
         $stages = Stage::with(['activites' => fn($q) => $q->visible()])
-            ->orderBy('date_debut', 'desc')
+            ->orderBy('date_debut', 'asc')
             ->get();
 
         return view('stage', compact('stages'));
