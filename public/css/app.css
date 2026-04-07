@@ -554,6 +554,7 @@ body {
   display: flex; gap: .5rem; align-items: center;
   background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
   padding: .5rem; margin-top: .5rem;
+  position: relative; z-index: 10;
 }
 .zoom-btn {
   background: none; border: 1px solid var(--border);

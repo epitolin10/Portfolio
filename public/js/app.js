@@ -48,6 +48,8 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
 
     let current = 0;
     let zoomLevel = 1;
+    let isDragging = false;
+    let startX, startY, initialX, initialY;
 
     function showImage(index) {
         current = (index + items.length) % items.length;
@@ -63,18 +65,50 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
 
     function resetZoom() {
         zoomLevel = 1;
-        img.style.transform = 'scale(1)';
+        initialX = 0;
+        initialY = 0;
+        img.style.transform = 'scale(1) translate(0, 0)';
         img.style.transformOrigin = 'center center';
+        img.style.cursor = 'default';
+        isDragging = false;
+    }
+
+    function updateZoom() {
+        img.style.transform = `scale(${zoomLevel}) translate(${initialX || 0}px, ${initialY || 0}px)`;
+        img.style.cursor = zoomLevel > 1 ? 'grab' : 'default';
     }
 
     function zoomIn() {
         zoomLevel = Math.min(zoomLevel * 1.2, 5);
-        img.style.transform = `scale(${zoomLevel})`;
+        updateZoom();
     }
 
     function zoomOut() {
         zoomLevel = Math.max(zoomLevel / 1.2, 0.5);
-        img.style.transform = `scale(${zoomLevel})`;
+        updateZoom();
+    }
+
+    function startDrag(e) {
+        if (zoomLevel <= 1) return;
+        isDragging = true;
+        startX = e.clientX - (initialX || 0);
+        startY = e.clientY - (initialY || 0);
+        img.style.cursor = 'grabbing';
+        e.preventDefault();
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        initialX = e.clientX - startX;
+        initialY = e.clientY - startY;
+        updateZoom();
+    }
+
+    function stopDrag() {
+        isDragging = false;
+        if (zoomLevel > 1) {
+            img.style.cursor = 'grab';
+        }
     }
 
     function openLightbox(index) {
@@ -133,6 +167,11 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
             zoomOut();
         }
     });
+
+    // Drag functionality
+    img.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
 
     overlay.addEventListener('click', function (e) {
         if (e.target === overlay) closeLightbox();
