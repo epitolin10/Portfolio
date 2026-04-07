@@ -37,6 +37,9 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
     const btnClose = document.getElementById('lightboxClose');
     const btnPrev  = document.getElementById('lightboxPrev');
     const btnNext  = document.getElementById('lightboxNext');
+    const btnZoomIn = document.getElementById('zoomIn');
+    const btnZoomOut = document.getElementById('zoomOut');
+    const btnZoomReset = document.getElementById('zoomReset');
 
     // Collect all image captures (not PDFs)
     const items = Array.from(document.querySelectorAll('[data-lightbox]')).map(function (btn) {
@@ -44,6 +47,7 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
     });
 
     let current = 0;
+    let zoomLevel = 1;
 
     function showImage(index) {
         current = (index + items.length) % items.length;
@@ -54,6 +58,23 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
         const hasMany = items.length > 1;
         if (btnPrev) btnPrev.hidden = !hasMany;
         if (btnNext) btnNext.hidden = !hasMany;
+        resetZoom();
+    }
+
+    function resetZoom() {
+        zoomLevel = 1;
+        img.style.transform = 'scale(1)';
+        img.style.transformOrigin = 'center center';
+    }
+
+    function zoomIn() {
+        zoomLevel = Math.min(zoomLevel * 1.2, 5);
+        img.style.transform = `scale(${zoomLevel})`;
+    }
+
+    function zoomOut() {
+        zoomLevel = Math.max(zoomLevel / 1.2, 0.5);
+        img.style.transform = `scale(${zoomLevel})`;
     }
 
     function openLightbox(index) {
@@ -67,6 +88,7 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
         overlay.hidden = true;
         img.src = '';
         document.body.style.overflow = '';
+        resetZoom();
     }
 
     document.querySelectorAll('[data-lightbox]').forEach(function (btn, i) {
@@ -87,6 +109,31 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
         showImage(current + 1);
     });
 
+    btnZoomIn && btnZoomIn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        zoomIn();
+    });
+
+    btnZoomOut && btnZoomOut.addEventListener('click', function (e) {
+        e.stopPropagation();
+        zoomOut();
+    });
+
+    btnZoomReset && btnZoomReset.addEventListener('click', function (e) {
+        e.stopPropagation();
+        resetZoom();
+    });
+
+    // Zoom with mouse wheel
+    img.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            zoomIn();
+        } else {
+            zoomOut();
+        }
+    });
+
     overlay.addEventListener('click', function (e) {
         if (e.target === overlay) closeLightbox();
     });
@@ -96,5 +143,8 @@ document.getElementById('navToggle')?.addEventListener('click', function() {
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') showImage(current - 1);
         if (e.key === 'ArrowRight') showImage(current + 1);
+        if (e.key === '+') zoomIn();
+        if (e.key === '-') zoomOut();
+        if (e.key === '0') resetZoom();
     });
 }());

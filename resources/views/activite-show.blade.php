@@ -143,6 +143,11 @@
         <img id="lightboxImg" src="" alt="">
         <p id="lightboxCaption" class="lightbox-caption"></p>
         <p id="lightboxCounter" class="lightbox-counter"></p>
+        <div class="lightbox-zoom-controls">
+            <button class="zoom-btn" id="zoomIn" aria-label="Zoom avant">+</button>
+            <button class="zoom-btn" id="zoomOut" aria-label="Zoom arrière">−</button>
+            <button class="zoom-btn" id="zoomReset" aria-label="Réinitialiser le zoom">⭯</button>
+        </div>
     </div>
     <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Image suivante" hidden>&#8250;</button>
 </div>
