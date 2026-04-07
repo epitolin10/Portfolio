@@ -89,7 +89,7 @@ class PortfolioController extends Controller
 
     public function stages()
     {
-        $stages = Stage::with(['activites' => fn($q) => $q->visible()])
+        $stages = Stage::with(['activites' => fn($q) => $q->visible()->orderBy('date_realisation', 'asc')])
             ->orderBy('date_debut', 'asc')
             ->get();
 
@@ -98,7 +98,7 @@ class PortfolioController extends Controller
 
     public function ap()
     {
-        $entreprises = EntrepriseAp::with(['activites' => fn($q) => $q->visible()->with('competences')])
+        $entreprises = EntrepriseAp::with(['activites' => fn($q) => $q->visible()->orderBy('date_realisation', 'asc')->with('competences')])
             ->orderBy('nom')
             ->get();
 
