@@ -122,29 +122,13 @@
                 </div>
                 <h3>{{ $activite->titre }}</h3>
                 <p>{{ Str::limit($activite->description_courte, 120) }}</p>
-                <div class="activite-tags">
-                    @foreach($activite->competences->take(3) as $c)
-                        <span class="tag">{{ $c->intitule_court }}</span>
-                    @endforeach
-                </div>
-            </a>
-            @endforeach
-        </div>
-    </div>
-</section>
-<section class="section-competences-preview">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-tag">Blocs B1</span>
-            <h2>Compétences B1</h2>
-        </div>
-        <div class="competences-grid">
-            @foreach($competences as $comp)
-            <a href="{{ route('portfolio.competences', ['bloc' => $comp->slug]) }}" class="comp-card">
-                <div class="comp-card-icon">{{ $comp->icone ?? '◈' }}</div>
-                <h3>{{ $comp->intitule }}</h3>
-                <p>{{ $comp->description_courte }}</p>
-                
+                @if($activite->outils)
+                    <div class="activite-tags">
+                        @foreach(explode(',', $activite->outils) as $outil)
+                            <span class="tag">{{ trim($outil) }}</span>
+                        @endforeach
+                    </div>
+                @endif
             </a>
             @endforeach
         </div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Activite;
-use App\Models\Competence;
 use App\Models\CompetenceAcquise;
 use App\Models\Stage;
 
@@ -15,17 +14,14 @@ class DashboardController extends Controller
     {
         $stats = [
             'activites' => Activite::count(),
-            'competences_couvertes' => Competence::has('activites')->count(),
+            'competences_couvertes' => CompetenceAcquise::count(),
             'competences_acquises' => CompetenceAcquise::count(),
             'stages' => Stage::count(),
             'visibles' => Activite::where('visible', true)->count(),
             'avec_captures' => Activite::has('captures')->count(),
         ];
 
-        $coverageCompetences = Competence::withCount('activites')
-            ->orderByDesc('activites_count')
-            ->orderBy('ordre')
-            ->get();
+        $coverageCompetences = collect();
 
         $activitesRecentes = Activite::latest('created_at')
             ->take(5)

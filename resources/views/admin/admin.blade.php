@@ -24,9 +24,6 @@
         <a href="{{ route('admin.activites.index') }}" class="sidebar-link {{ request()->routeIs('admin.activites*') ? 'active' : '' }}">
             <span class="icon">◈</span> Activités
         </a>
-        <a href="{{ route('admin.competences.index') }}" class="sidebar-link {{ request()->routeIs('admin.competences*') ? 'active' : '' }}">
-            <span class="icon">◉</span> Compétences
-        </a>
         <a href="{{ route('admin.stages.index') }}" class="sidebar-link {{ request()->routeIs('admin.stages*') ? 'active' : '' }}">
             <span class="icon">◎</span> Stages
         </a>

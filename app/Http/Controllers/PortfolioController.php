@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activite;
-use App\Models\Competence;
 use App\Models\CompetenceAcquise;
 use App\Models\EntrepriseAp;
 use App\Models\Etude;
@@ -15,15 +14,12 @@ class PortfolioController extends Controller
     public function index()
     {
         $profil           = Profil::first();
-        $competences      = Competence::withCount('activites')->orderBy('ordre')->get();
         $activitesRecentes = Activite::visible()
-            ->with('competences')
             ->latest('date_realisation')
             ->take(3)
             ->get();
 
         $nbActivites   = Activite::visible()->count();
-        $nbCompetences = Competence::has('activites')->count();
         $nbStages      = Stage::count();
 
         $competencesAcquises = CompetenceAcquise::orderBy('categorie')
@@ -34,52 +30,45 @@ class PortfolioController extends Controller
         $etudes = Etude::orderBy('ordre')->orderBy('date_debut', 'desc')->get();
 
         return view('index', compact(
-            'profil', 'competences', 'activitesRecentes',
-            'nbActivites', 'nbCompetences', 'nbStages',
+            'profil', 'activitesRecentes',
+            'nbActivites', 'nbStages',
             'competencesAcquises', 'etudes'
         ));
     }
 
     public function competences()
     {
-        $competences = Competence::with(['sousCompetences'])->orderBy('ordre')->get();
-
         $competencesAcquises = CompetenceAcquise::orderBy('categorie')
             ->orderBy('ordre')
             ->get()
             ->groupBy('categorie');
 
-        return view('competence', compact('competences', 'competencesAcquises'));
+        return view('competence', compact('competencesAcquises'));
     }
 
     public function activites()
     {
-        $competences = Competence::orderBy('ordre')->get();
         $stages = Stage::orderBy('date_debut', 'asc')->get();
 
         $activites = Activite::visible()
-            ->with(['competences', 'stage'])
+            ->with('stage')
             ->when(request('type'), fn($q) => $q->byType(request('type')))
-            ->when(request('competence'), fn($q) => $q->byCompetence(request('competence')))
             ->when(request('stage_id'), fn($q) => $q->where('stage_id', request('stage_id')))
             ->latest('date_realisation')
             ->paginate(6)
             ->withQueryString();
 
-        return view('activites', compact('activites', 'competences', 'stages'));
+        return view('activites', compact('activites', 'stages'));
     }
 
     public function activiteShow($slug)
     {
         $activite = Activite::visible()
-            ->with(['competences.sousCompetences', 'sousCompetences', 'stage', 'captures'])
+            ->with(['sousCompetences', 'stage', 'captures'])
             ->where('slug', $slug)
             ->firstOrFail();
 
         $autresActivites = Activite::visible()
-            ->whereHas('competences', fn($q) =>
-                $q->whereIn('competences.id', $activite->competences->pluck('id'))
-            )
             ->where('id', '!=', $activite->id)
             ->take(3)
             ->get();
@@ -98,7 +87,7 @@ class PortfolioController extends Controller
 
     public function ap()
     {
-        $entreprises = EntrepriseAp::with(['activites' => fn($q) => $q->visible()->orderBy('date_realisation', 'asc')->with('competences')])
+        $entreprises = EntrepriseAp::with(['activites' => fn($q) => $q->visible()->orderBy('date_realisation', 'asc')])
             ->orderBy('nom')
             ->get();
 

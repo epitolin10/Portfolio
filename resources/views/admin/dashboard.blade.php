@@ -14,14 +14,6 @@
         <a href="{{ route('admin.activites.index') }}" class="stat-card-link">Gérer →</a>
     </div>
     <div class="stat-card">
-        <div class="stat-card-icon">◉</div>
-        <div class="stat-card-body">
-            <span class="stat-card-num">{{ $stats['competences_couvertes'] }}</span>
-            <span class="stat-card-label">Compétences B1 couvertes</span>
-        </div>
-        <a href="{{ route('admin.competences.index') }}" class="stat-card-link">Voir →</a>
-    </div>
-    <div class="stat-card">
         <div class="stat-card-icon">⚡</div>
         <div class="stat-card-body">
             <span class="stat-card-num">{{ $stats['competences_acquises'] }}</span>
@@ -47,27 +39,6 @@
 </div>
 
 <div class="dash-grid">
-    <div class="dash-card">
-        <div class="dash-card-header">
-            <h3>Couverture des blocs B1</h3>
-        </div>
-        <div class="competences-coverage">
-            @foreach($coverageCompetences as $comp)
-            <div class="coverage-row">
-                <div class="coverage-label">
-                    <span class="coverage-name">{{ $comp->intitule_court }}</span>
-                    <span class="coverage-count">{{ $comp->activites_count }} act.</span>
-                </div>
-                <div class="coverage-bar-wrap">
-                    <div class="coverage-bar"
-                         style="width: {{ min(100, ($comp->activites_count / max(1, $stats['activites'])) * 100 * 3) }}%">
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-
     <div class="dash-card">
         <div class="dash-card-header">
             <h3>Dernières activités ajoutées</h3>
@@ -101,9 +72,9 @@
             <span class="check-icon">{{ $stats['activites'] >= 5 ? '✓' : '○' }}</span>
             <span>Au moins 5 activités documentées</span>
         </div>
-        <div class="checklist-item {{ $stats['competences_couvertes'] >= 5 ? 'done' : '' }}">
-            <span class="check-icon">{{ $stats['competences_couvertes'] >= 5 ? '✓' : '○' }}</span>
-            <span>5 blocs de compétences B1 couverts</span>
+        <div class="checklist-item {{ $stats['competences_acquises'] >= 5 ? 'done' : '' }}">
+            <span class="check-icon">{{ $stats['competences_acquises'] >= 5 ? '✓' : '○' }}</span>
+            <span>5 compétences acquises</span>
         </div>
         <div class="checklist-item {{ $stats['stages'] >= 2 ? 'done' : '' }}">
             <span class="check-icon">{{ $stats['stages'] >= 2 ? '✓' : '○' }}</span>

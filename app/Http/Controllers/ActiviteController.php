@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activite;
-use App\Models\Competence;
 use App\Models\Stage;
 use App\Models\Capture;
 use Illuminate\Http\Request;
@@ -14,22 +13,18 @@ class ActiviteController extends Controller
 {
     public function index(Request $request)
     {
-        $activites = Activite::with(['competences', 'stage'])
+        $activites = Activite::with(['stage'])
             ->when($request->type, fn($q) => $q->byType($request->type))
-            ->when($request->competence_id, fn($q) => $q->byCompetence($request->competence_id))
             ->latest('date_realisation')
             ->paginate(15);
 
-        $competences = Competence::orderBy('ordre')->get();
-
-        return view('admin.activites.index', compact('activites', 'competences'));
+        return view('admin.activites.index', compact('activites'));
     }
 
     public function create()
     {
-        $competences = Competence::with('sousCompetences')->orderBy('ordre')->get();
         $stages      = Stage::orderBy('date_debut', 'desc')->get();
-        return view('admin.activites.form', compact('competences', 'stages'));
+        return view('admin.activites.form', compact('stages'));
     }
 
     public function store(Request $request)
@@ -44,8 +39,6 @@ class ActiviteController extends Controller
             'lien_externe'      => 'nullable|url|max:500',
             'ap'                => 'nullable|string|max:255',
             'stage_id'          => 'nullable|exists:stages,id',
-            'competences'       => 'required|array|min:1',
-            'competences.*'     => 'exists:competences,id',
             'sous_competences'  => 'nullable|array',
             'sous_competences.*'=> 'exists:sous_competences,id',
             'captures'          => 'nullable|array|max:5',
@@ -60,8 +53,6 @@ class ActiviteController extends Controller
             'mise_en_avant' => $request->boolean('mise_en_avant'),
         ]);
 
-        // Sync competences
-        $activite->competences()->sync($request->input('competences', []));
         $activite->sousCompetences()->sync($request->input('sous_competences', []));
 
         // Upload captures
@@ -82,10 +73,9 @@ class ActiviteController extends Controller
 
     public function edit(Activite $activite)
     {
-        $activite->load(['competences', 'sousCompetences', 'captures']);
-        $competences = Competence::with('sousCompetences')->orderBy('ordre')->get();
+        $activite->load(['sousCompetences', 'captures']);
         $stages      = Stage::orderBy('date_debut', 'desc')->get();
-        return view('admin.activites.form', compact('activite', 'competences', 'stages'));
+        return view('admin.activites.form', compact('activite', 'stages'));
     }
 
     public function update(Request $request, Activite $activite)
@@ -100,8 +90,6 @@ class ActiviteController extends Controller
             'lien_externe'      => 'nullable|url|max:500',
             'ap'                => 'nullable|string|max:255',
             'stage_id'          => 'nullable|exists:stages,id',
-            'competences'       => 'required|array|min:1',
-            'competences.*'     => 'exists:competences,id',
             'sous_competences'  => 'nullable|array',
             'captures'          => 'nullable|array|max:5',
             'captures.*'        => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
@@ -115,7 +103,6 @@ class ActiviteController extends Controller
             'mise_en_avant' => $request->boolean('mise_en_avant'),
         ]);
 
-        $activite->competences()->sync($request->input('competences', []));
         $activite->sousCompetences()->sync($request->input('sous_competences', []));
 
         if ($request->hasFile('captures')) {

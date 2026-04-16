@@ -25,7 +25,7 @@
         </a>
         <ul class="nav-links">
             <li><a href="{{ route('portfolio.index') }}" class="{{ request()->routeIs('portfolio.index') ? 'active' : '' }}">Accueil</a></li>
-            <li><a href="{{ route('portfolio.competences') }}" class="{{ request()->routeIs('portfolio.competences') ? 'active' : '' }}">Compétences B1</a></li>
+            <li><a href="{{ route('portfolio.competences') }}" class="{{ request()->routeIs('portfolio.competences') ? 'active' : '' }}">Compétences</a></li>
             <li><a href="{{ route('portfolio.activites') }}" class="{{ request()->routeIs('portfolio.activites*') ? 'active' : '' }}">Activités</a></li>
             <li><a href="{{ route('portfolio.stages') }}" class="{{ request()->routeIs('portfolio.stages') ? 'active' : '' }}">Stages</a></li>
             <li><a href="{{ route('portfolio.ap') }}" class="{{ request()->routeIs('portfolio.ap') ? 'active' : '' }}">AP</a></li>
@@ -34,7 +34,19 @@
         </ul>
         <button class="nav-toggle" id="navToggle">☰</button>
         <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème" title="Changer de thème">
-            <span id="themeIcon">🌙</span>
+            <span id="themeIcon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="theme-icon">
+                    <path d="M8 4.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Z"/>
+                    <path d="M8 0a.5.5 0 0 1 .5.5V2a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 8 0Z"/>
+                    <path d="M8 14a.5.5 0 0 1 .5.5V16a.5.5 0 0 1-1 0v-1.5A.5.5 0 0 1 8 14Z"/>
+                    <path d="M16 8a.5.5 0 0 1-.5.5H14a.5.5 0 0 1 0-1h1.5A.5.5 0 0 1 16 8Z"/>
+                    <path d="M2 8a.5.5 0 0 1-.5.5H0a.5.5 0 0 1 0-1h1.5A.5.5 0 0 1 2 8Z"/>
+                    <path d="M11.031 2.515a.5.5 0 0 1 .707 0l1.06 1.06a.5.5 0 1 1-.707.707l-1.06-1.06a.5.5 0 0 1 0-.707Z"/>
+                    <path d="M3.202 10.344a.5.5 0 1 1 .707.707l-1.06 1.06a.5.5 0 1 1-.707-.707l1.06-1.06Z"/>
+                    <path d="M13.738 11.576a.5.5 0 0 1 0 .707l-1.06 1.06a.5.5 0 1 1-.707-.707l1.06-1.06a.5.5 0 0 1 .707 0Z"/>
+                    <path d="M2.262 2.515a.5.5 0 1 1 .707.707l-1.06 1.06a.5.5 0 1 1-.707-.707l1.06-1.06Z"/>
+                </svg>
+            </span>
         </button>
     </div>
 </nav>
@@ -45,7 +57,7 @@
 
 <footer class="footer">
     <div class="footer-inner">
-        <p>BTS SIO — <strong>@yield('author', 'Enzo Pitolin')</strong></p>
+        <p><strong>@yield('author', 'Enzo Pitolin')</strong></p>
         <div class="footer-socials">
             <a href="mailto:enzopitolin3@gmail.com" class="footer-social-link" aria-label="Email">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75zm1.5.63v.2L12 12.63l7.5-5.05v-.2a.25.25 0 0 0-.25-.25H4.75a.25.25 0 0 0-.25.25zm15 2L12.42 14.2a.75.75 0 0 1-.84 0L4.5 9.38v7.87c0 .14.11.25.25.25h14.5a.25.25 0 0 0 .25-.25V9.38z"/></svg>

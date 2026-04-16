@@ -1,56 +1,13 @@
 @extends('layouts.app')
-@section('title', 'Compétences B1')
+@section('title', 'Compétences techniques')
 
 @section('content')
 
 <section class="page-hero">
     <div class="container">
-        <span class="section-tag">Bloc B1</span>
-        <h1 class="page-title">Compétences B1</h1>
-        <p class="page-desc">Présentation de mes compétences par blocs B1, illustrées par les activités réalisées en stage et en AP.</p>
+        <span class="section-tag">Compétences</span>
+        <h1 class="page-title">Mes Compétences</h1>
     </div>
-</section>
-
-<section class="container section-spaced">
-
-    {{-- Filtres rapides --}}
-    <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="all">Tous les blocs</button>
-        @foreach($competences as $comp)
-            <button class="filter-tab" data-filter="{{ $comp->slug }}">{{ $comp->intitule_court }}</button>
-        @endforeach
-    </div>
-
-    {{-- Blocs de compétences --}}
-    @foreach($competences as $comp)
-    <div class="bloc-competence" id="{{ $comp->slug }}" data-bloc="{{ $comp->slug }}">
-
-        <div class="bloc-header">
-            <div class="bloc-header-left">
-                <span class="bloc-icon">{{ $comp->icone }}</span>
-                <div>
-                    <h2 class="bloc-title">{{ $comp->intitule }}</h2>
-                    <p class="bloc-desc">{{ $comp->description_courte }}</p>
-                </div>
-            </div>
-        </div>
-
-        {{-- Sous-compétences --}}
-        @if($comp->sousCompetences->count())
-        <div class="sous-comp-tags">
-            @foreach($comp->sousCompetences as $sc)
-                <span class="sc-tag">
-                    {{ $sc->intitule }}
-                </span>
-            @endforeach
-        </div>
-        @endif
-
-
-
-    </div>
-    @endforeach
-
 </section>
 
 {{-- Compétences acquises (skills techniques) --}}

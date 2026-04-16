@@ -52,11 +52,6 @@ class Activite extends Model
         return $this->belongsTo(EntrepriseAp::class, 'entreprise_ap_id');
     }
 
-    public function competences()
-    {
-        return $this->belongsToMany(Competence::class, 'activite_competence');
-    }
-
     public function sousCompetences()
     {
         return $this->belongsToMany(SousCompetence::class, 'activite_sous_competence');
@@ -81,10 +76,5 @@ class Activite extends Model
     public function scopeByType($query, $type)
     {
         return $query->where('type', $type);
-    }
-
-    public function scopeByCompetence($query, $competenceId)
-    {
-        return $query->whereHas('competences', fn($q) => $q->where('competences.id', $competenceId));
     }
 }

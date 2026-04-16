@@ -6,8 +6,7 @@
 <section class="page-hero">
     <div class="container">
         <span class="section-tag">Option B</span>
-        <h1 class="page-title">Mes Atelier de Professionalisation</h1>
-        <p class="page-desc">Ensemble des réalisations effectuées durant mes stages et ateliers de professionnalisation.</p>
+        <h1 class="page-title">Mes Activités</h1>
     </div>
 </section>
 
@@ -34,7 +33,7 @@
                 @endforeach
             </select>
 
-            @if(request('type') || request('competence') || request('stage_id'))
+            @if(request('type') || request('stage_id'))
                 <a href="{{ route('portfolio.activites') }}" class="filter-reset">✕ Réinitialiser</a>
             @endif
         </div>
@@ -55,18 +54,23 @@
 
             @if($activite->stage)
                 <div class="acf-stage">
-                    <span class="stage-chip">📍 {{ $activite->stage->entreprise }}</span>
+                    <span class="stage-chip">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="meta-icon">
+                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                        </svg>
+                        {{ $activite->stage->entreprise }}
+                    </span>
                 </div>
             @endif
 
             <div class="acf-footer">
-                <div class="activite-tags">
-                    @foreach($activite->competences->take(3) as $c)
-                        <span class="tag">{{ $c->intitule_court }}</span>
-                    @endforeach
-                </div>
                 @if($activite->outils)
-                    <span class="acf-tools">{{ Str::limit($activite->outils, 40) }}</span>
+                    <div class="activite-tags">
+                        @foreach(explode(',', $activite->outils) as $outil)
+                            <span class="tag">{{ trim($outil) }}</span>
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </a>

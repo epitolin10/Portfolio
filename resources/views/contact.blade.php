@@ -23,10 +23,6 @@
                     {{ $profil->email }}
                 </a>
                 @endif
-                <a href="mailto:enzopitolin3@gmail.com" class="contact-link" aria-label="Email">
-                    <span class="contact-link-icon">✉</span>
-                    enzopitolin3@gmail.com
-                </a>
                 <a href="https://www.linkedin.com/in/enzo-pitolin-b623473b7/" class="contact-link" aria-label="LinkedIn">
                     <span class="contact-link-icon contact-link-icon--social" aria-hidden="true">
                         <svg viewBox="0 0 24 24" role="img" focusable="false">
@@ -46,16 +42,7 @@
             </div>
         </div>
 
-        <div class="contact-card">
-            <p class="contact-note">
-                Ce portfolio a été réalisé dans le cadre de l'épreuve E5 du BTS Services Informatiques aux Organisations (SIO).<br><br>
-                Il présente l'ensemble de mes compétences acquises lors de mes stages et des ateliers de professionnalisation.
-            </p>
-            <div class="contact-ctas">
-                <a href="{{ route('portfolio.competences') }}" class="btn btn-primary">Voir mes compétences</a>
-                <a href="{{ route('portfolio.activites') }}" class="btn btn-outline">Voir mes activités</a>
-            </div>
-        </div>
+        
     </div>
 </section>
 

@@ -7,7 +7,6 @@
     <div class="container">
         <span class="section-tag">Parcours</span>
         <h1 class="page-title">Atelier de Professionalisation</h1>
-        <p class="page-desc">Présentation des entreprises et des missions réalisées dans le cadre des Atelier de Professionalisation.</p>
     </div>
 </section>
 
@@ -39,11 +38,13 @@
                     <div class="stage-act-left">
                         <h4>{{ $activite->titre }}</h4>
                         <p>{{ Str::limit($activite->description_courte, 100) }}</p>
-                        <div class="activite-tags">
-                            @foreach($activite->competences->take(3) as $c)
-                                <span class="tag">{{ $c->intitule_court }}</span>
-                            @endforeach
-                        </div>
+                        @if($activite->outils)
+                            <div class="activite-tags">
+                                @foreach(explode(',', $activite->outils) as $outil)
+                                    <span class="tag">{{ trim($outil) }}</span>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                     <span class="stage-act-arrow">→</span>
                 </a>

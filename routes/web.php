@@ -54,9 +54,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::delete('captures/{capture}', [CaptureController::class, 'destroy'])
         ->name('captures.destroy');
 
-    // Compétences B1
-    Route::resource('competences', CompetenceController::class)->only(['index', 'edit', 'update']);
-
     // Compétences acquises CRUD
     Route::resource('competences-acquises', CompetenceAcquiseController::class);
 

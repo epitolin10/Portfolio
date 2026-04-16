@@ -37,26 +37,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // ── Compétences B1 ──────────────────────────────────
-        Schema::create('competences', function (Blueprint $table) {
-            $table->id();
-            $table->string('slug')->unique();
-            $table->string('intitule');          // libellé officiel complet
-            $table->string('intitule_court');    // libellé court pour les tags
-            $table->string('description_courte')->nullable();
-            $table->string('icone')->nullable(); // emoji ou symbol
-            $table->unsignedTinyInteger('ordre')->default(0);
-            $table->timestamps();
-        });
-
-        // ── Sous-compétences ────────────────────────────────
-        Schema::create('sous_competences', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('competence_id')->constrained()->cascadeOnDelete();
-            $table->string('intitule');
-            $table->timestamps();
-        });
-
         // ── Activités ───────────────────────────────────────
         Schema::create('activites', function (Blueprint $table) {
             $table->id();
@@ -74,21 +54,6 @@ return new class extends Migration
             $table->foreignId('stage_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
-
-        // ── Pivot activite <-> compétence ───────────────────
-        Schema::create('activite_competence', function (Blueprint $table) {
-            $table->foreignId('activite_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('competence_id')->constrained()->cascadeOnDelete();
-            $table->primary(['activite_id', 'competence_id']);
-        });
-
-        // ── Pivot activite <-> sous-compétence ──────────────
-        Schema::create('activite_sous_competence', function (Blueprint $table) {
-            $table->foreignId('activite_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('sous_competence_id')->constrained()->cascadeOnDelete();
-            $table->primary(['activite_id', 'sous_competence_id']);
-        });
-
         // ── Captures / preuves ──────────────────────────────
         Schema::create('captures', function (Blueprint $table) {
             $table->id();
@@ -102,10 +67,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('captures');
-        Schema::dropIfExists('activite_sous_competence');
-        Schema::dropIfExists('activite_competence');
         Schema::dropIfExists('activites');
-        Schema::dropIfExists('sous_competences');
         Schema::dropIfExists('competences');
         Schema::dropIfExists('stages');
         Schema::dropIfExists('profils');

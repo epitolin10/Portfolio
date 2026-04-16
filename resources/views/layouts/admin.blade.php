@@ -23,9 +23,6 @@
         <a href="{{ route('admin.activites.index') }}" class="sidebar-link {{ request()->routeIs('admin.activites*') ? 'active' : '' }}">
             <span class="icon">◈</span> Activités
         </a>
-        <a href="{{ route('admin.competences.index') }}" class="sidebar-link {{ request()->routeIs('admin.competences.index') || request()->routeIs('admin.competences.edit') || request()->routeIs('admin.competences.update') ? 'active' : '' }}">
-            <span class="icon">◉</span> Compétences B1
-        </a>
         <a href="{{ route('admin.competences-acquises.index') }}" class="sidebar-link {{ request()->routeIs('admin.competences-acquises*') ? 'active' : '' }}">
             <span class="icon">⚡</span> Compétences acquises
         </a>
