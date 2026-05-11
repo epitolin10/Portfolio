@@ -26,6 +26,7 @@ Route::get('/stages', [PortfolioController::class, 'stages'])->name('portfolio.s
 Route::get('/ap', [PortfolioController::class, 'ap'])->name('portfolio.ap');
 Route::get('/etudes', [PortfolioController::class, 'etudes'])->name('portfolio.etudes');
 Route::get('/contact', [PortfolioController::class, 'contact'])->name('portfolio.contact');
+Route::get('/cv', [PortfolioController::class, 'downloadCv'])->name('portfolio.cv');
 
 /*
 |--------------------------------------------------------------------------

@@ -24,11 +24,12 @@ class ProfilController extends Controller
             'nom'       => 'required|string|max:255',
             'prenom'    => 'required|string|max:255',
             'email'     => 'nullable|email|max:255',
-            'option'    => 'required|in:SLAM,SISR',
+            'titre'     => 'nullable|string|max:255',
             'bio'       => 'nullable|string',
             'linkedin'  => 'nullable|url|max:255',
             'github'    => 'nullable|url|max:255',
             'photo'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'cv'        => 'nullable|mimes:pdf|max:5120',
         ]);
 
         if ($request->hasFile('photo')) {
@@ -36,6 +37,18 @@ class ProfilController extends Controller
                 Storage::disk('public')->delete($profil->photo);
             }
             $validated['photo'] = $request->file('photo')->store('profil', 'public');
+        }
+
+        if ($request->hasFile('cv')) {
+            if ($profil && $profil->cv) {
+                Storage::disk('public')->delete($profil->cv);
+            }
+            $validated['cv'] = $request->file('cv')->store('cv', 'public');
+        }
+
+        if ($request->boolean('delete_cv') && $profil && $profil->cv) {
+            Storage::disk('public')->delete($profil->cv);
+            $validated['cv'] = null;
         }
 
         if ($profil) {

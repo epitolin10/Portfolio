@@ -9,7 +9,7 @@
         <div class="hero-grid"></div>
     </div>
     <div class="hero-inner">
-        <div class="hero-tag">BTS SIO — Option SLAM</div>
+        @if($profil->titre ?? false)<div class="hero-tag">{{ $profil->titre }}</div>@endif
         <h1 class="hero-title">
             <span class="hero-hi">Bonjour, je suis</span>
             <span class="hero-name">{{ ($profil->prenom ?? '') . ' ' . ($profil->nom ?? 'Enzo Pitolin') }}</span>
@@ -20,6 +20,9 @@
         <div class="hero-actions">
             <a href="{{ route('portfolio.competences') }}" class="btn btn-primary">Voir mes compétences</a>
             <a href="{{ route('portfolio.activites') }}" class="btn btn-outline">Mes activités</a>
+            @if($profil->cv ?? false)
+                <a href="{{ route('portfolio.cv') }}" class="btn btn-outline">Télécharger mon CV</a>
+            @endif
         </div>
         <div class="hero-stats">
             <div class="stat">

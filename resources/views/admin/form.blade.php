@@ -191,5 +191,27 @@ function updateTypeVisibility() {
 
 typeSelect.addEventListener('change', updateTypeVisibility);
 updateTypeVisibility();
+
+document.querySelectorAll('.capture-delete').forEach(btn => {
+    btn.addEventListener('click', function () {
+        if (!confirm('Supprimer cette image ?')) return;
+
+        const id = this.dataset.id;
+        const item = this.closest('.capture-item');
+
+        fetch(`/admin/captures/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) item.remove();
+        })
+        .catch(() => alert('Erreur lors de la suppression.'));
+    });
+});
 </script>
 @endpush

@@ -57,12 +57,14 @@
         </div>
 
         <div class="form-group">
-            <label>Option BTS <span style="color:var(--accent)">*</span></label>
-            <select name="option" class="form-input" required>
-                <option value="SLAM" {{ old('option', $profil->option ?? 'SLAM') === 'SLAM' ? 'selected' : '' }}>SLAM</option>
-                <option value="SISR" {{ old('option', $profil->option ?? '') === 'SISR' ? 'selected' : '' }}>SISR</option>
-            </select>
-            @error('option') <span class="form-error">{{ $message }}</span> @enderror
+            <label>Titre / Sous-titre</label>
+            <input type="text" name="titre"
+                   value="{{ old('titre', $profil->titre ?? '') }}"
+                   class="form-input @error('titre') is-invalid @enderror"
+                   placeholder="Ex : Développeur Web, BTS SIO — Option SLAM…"
+                   maxlength="255">
+            <small style="color:var(--text-muted)">Affiché sous votre nom sur l'accueil et la page contact.</small>
+            @error('titre') <span class="form-error">{{ $message }}</span> @enderror
         </div>
 
         <div class="form-group">
@@ -71,6 +73,28 @@
                       class="form-input @error('bio') is-invalid @enderror"
                       placeholder="Quelques mots sur vous...">{{ old('bio', $profil->bio ?? '') }}</textarea>
             @error('bio') <span class="form-error">{{ $message }}</span> @enderror
+        </div>
+
+        <h3 class="form-card-title" style="margin-top:1.5rem">CV</h3>
+
+        <div class="form-group">
+            <label>Curriculum Vitae (PDF)</label>
+
+            @if($profil && $profil->cv)
+                <div style="margin-bottom:.75rem;display:flex;align-items:center;gap:1rem">
+                    <a href="{{ asset('storage/'.$profil->cv) }}" target="_blank" class="btn btn-ghost" style="font-size:.875rem">
+                        📄 Voir le CV actuel
+                    </a>
+                    <label style="display:flex;align-items:center;gap:.4rem;font-size:.875rem;cursor:pointer">
+                        <input type="checkbox" name="delete_cv" value="1">
+                        Supprimer le CV
+                    </label>
+                </div>
+            @endif
+
+            <input type="file" name="cv" id="cv" accept=".pdf" class="form-input" style="padding:.4rem">
+            <small style="color:var(--text-muted)">PDF uniquement — max 5 Mo. Laissez vide pour conserver le CV actuel.</small>
+            @error('cv') <span class="form-error">{{ $message }}</span> @enderror
         </div>
 
         <h3 class="form-card-title" style="margin-top:1.5rem">Liens</h3>

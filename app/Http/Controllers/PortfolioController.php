@@ -8,6 +8,7 @@ use App\Models\EntrepriseAp;
 use App\Models\Etude;
 use App\Models\Stage;
 use App\Models\Profil;
+use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
 {
@@ -105,5 +106,18 @@ class PortfolioController extends Controller
     {
         $profil = Profil::first();
         return view('contact', compact('profil'));
+    }
+
+    public function downloadCv()
+    {
+        $profil = Profil::first();
+
+        if (! $profil || ! $profil->cv || ! Storage::disk('public')->exists($profil->cv)) {
+            abort(404);
+        }
+
+        $nom = 'CV-' . ($profil->prenom ?? 'Enzo') . '-' . ($profil->nom ?? 'Pitolin') . '.pdf';
+
+        return Storage::disk('public')->download($profil->cv, $nom);
     }
 }
