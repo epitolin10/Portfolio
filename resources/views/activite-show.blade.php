@@ -114,7 +114,7 @@
             {{-- Stage --}}
             @if($activite->stage)
             <div class="sidebar-card">
-                <h3>Contexte du stage</h3>
+                <h3>Contexte de l'expérience</h3>
                 <div class="stage-info">
                     <p><strong>{{ $activite->stage->entreprise }}</strong></p>
                     @if($activite->stage->ville)
@@ -132,7 +132,7 @@
                         </svg>
                         {{ $activite->stage->date_debut->format('M Y') }} → {{ $activite->stage->date_fin->format('M Y') }}
                     </p>
-                    <a href="{{ route('portfolio.stages') }}" class="see-all" style="font-size:.85rem;">Voir le stage →</a>
+                    <a href="{{ route('portfolio.stages') }}" class="see-all" style="font-size:.85rem;">Voir l'expérience →</a>
                 </div>
             </div>
             @endif

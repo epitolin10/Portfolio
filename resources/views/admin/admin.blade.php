@@ -25,7 +25,7 @@
             <span class="icon">◈</span> Activités
         </a>
         <a href="{{ route('admin.stages.index') }}" class="sidebar-link {{ request()->routeIs('admin.stages*') ? 'active' : '' }}">
-            <span class="icon">◎</span> Stages
+            <span class="icon">◎</span> Expériences Pro
         </a>
         <div class="sidebar-divider"></div>
         <a href="{{ route('portfolio.index') }}" class="sidebar-link" target="_blank">

@@ -25,7 +25,7 @@
         <div class="stat-card-icon">◎</div>
         <div class="stat-card-body">
             <span class="stat-card-num">{{ $stats['stages'] }}</span>
-            <span class="stat-card-label">Stages renseignés</span>
+            <span class="stat-card-label">Expériences Pro renseignées</span>
         </div>
         <a href="{{ route('admin.stages.index') }}" class="stat-card-link">Gérer →</a>
     </div>

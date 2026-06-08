@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', 'Mes Stages')
+@section('title', 'Expériences Professionnelles')
 
 @section('content')
 
 <section class="page-hero">
     <div class="container">
         <span class="section-tag">Parcours</span>
-        <h1 class="page-title">Mes stages</h1>
+        <h1 class="page-title">Mes expériences professionnelles</h1>
     </div>
 </section>
 
@@ -16,23 +16,23 @@
 
     @if($total === 0)
         <div class="empty-pub">
-            <p>Aucun stage renseigné pour le moment.</p>
+            <p>Aucune expérience professionnelle renseignée pour le moment.</p>
         </div>
     @else
 
     {{-- Navigation entre stages --}}
     @if($total > 1)
     <div class="stage-nav">
-        <button id="btn-prev" class="btn btn-outline" onclick="changeStage(-1)" disabled>← Stage précédent</button>
-        <span class="stage-nav-indicator" id="stage-indicator">Stage <span id="stage-current">1</span> / {{ $total }}</span>
-        <button id="btn-next" class="btn btn-outline" onclick="changeStage(1)">Stage suivant →</button>
+        <button id="btn-prev" class="btn btn-outline" onclick="changeStage(-1)" disabled>← Expérience précédente</button>
+        <span class="stage-nav-indicator" id="stage-indicator">Expérience <span id="stage-current">1</span> / {{ $total }}</span>
+        <button id="btn-next" class="btn btn-outline" onclick="changeStage(1)">Expérience suivante →</button>
     </div>
     @endif
 
     @foreach($stages as $index => $stage)
     <div class="stage-block" id="stage-{{ $index }}" @if($index > 0) style="display:none" @endif>
         <div class="stage-block-header">
-            <div class="stage-num">Stage {{ $index + 1 }}</div>
+            <div class="stage-num">Expérience {{ $index + 1 }}</div>
             <div class="stage-block-info">
                 @if($stage->logo)
                     <img src="{{ asset('storage/'.$stage->logo) }}" alt="{{ $stage->entreprise }}" class="stage-logo">

@@ -31,7 +31,11 @@
             </div>
             <div class="stat">
                 <span class="stat-num">{{ $nbStages }}</span>
-                <span class="stat-label">Stages</span>
+                <span class="stat-label">Expériences Pro</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">{{ $nbCompetences }}</span>
+                <span class="stat-label">Compétences</span>
             </div>
         </div>
     </div>

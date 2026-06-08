@@ -49,8 +49,8 @@
                     <div class="form-group">
                         <label for="type">Type <span class="required">*</span></label>
                         <select id="type" name="type" class="form-input form-select" required>
-                            <option value="stage" {{ old('type', $activite->type ?? '') == 'stage' ? 'selected' : '' }}>Stage</option>
-                            <option value="ap" {{ old('type', $activite->type ?? '') == 'ap' ? 'selected' : '' }}>AP</option>
+                            <option value="stage" {{ old('type', $activite->type ?? '') == 'stage' ? 'selected' : '' }}>Expérience Pro</option>
+                            <option value="ap" {{ old('type', $activite->type ?? '') == 'ap' ? 'selected' : '' }}>Atelier Pro</option>
                             <option value="projet" {{ old('type', $activite->type ?? '') == 'projet' ? 'selected' : '' }}>Projet perso</option>
                         </select>
                     </div>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="form-group" id="stageGroup">
-                    <label for="stage_id">Stage associé</label>
+                    <label for="stage_id">Expérience Pro associée</label>
                     <select id="stage_id" name="stage_id" class="form-input form-select">
                         <option value="">— Aucun —</option>
                         @foreach($stages as $stage)

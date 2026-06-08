@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Portfolio BTS SIO')</title>
+    <title>Enzo Pitolin | @yield('title', 'Portfolio BTS SIO')</title>
+    <meta name="description" content="@yield('meta_description', 'Portfolio de Enzo Pitolin — Étudiant BTS SIO SLAM, développeur web. Découvrez mes compétences, activités et stages.')">
+    <meta name="author" content="Enzo Pitolin">
+    <meta property="og:title" content="Enzo Pitolin | @yield('title', 'Portfolio BTS SIO')">
+    <meta property="og:description" content="@yield('meta_description', 'Portfolio de Enzo Pitolin — Étudiant BTS SIO SLAM, développeur web. Découvrez mes compétences, activités et stages.')">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <script>
         (function() {
             var saved = localStorage.getItem('portfolio-theme');
@@ -21,14 +27,14 @@
 <nav class="navbar">
     <div class="nav-inner">
         <a href="{{ route('portfolio.index') }}" class="nav-logo">
-            <span class="logo-bracket">[</span>Portfolio<span class="logo-bracket">]</span>
+            <span class="logo-bracket">[</span>Enzo Pitolin<span class="logo-bracket">]</span>
         </a>
         <ul class="nav-links">
             <li><a href="{{ route('portfolio.index') }}" class="{{ request()->routeIs('portfolio.index') ? 'active' : '' }}">Accueil</a></li>
             <li><a href="{{ route('portfolio.competences') }}" class="{{ request()->routeIs('portfolio.competences') ? 'active' : '' }}">Compétences</a></li>
             <li><a href="{{ route('portfolio.activites') }}" class="{{ request()->routeIs('portfolio.activites*') ? 'active' : '' }}">Activités</a></li>
-            <li><a href="{{ route('portfolio.stages') }}" class="{{ request()->routeIs('portfolio.stages') ? 'active' : '' }}">Stages</a></li>
-            <li><a href="{{ route('portfolio.ap') }}" class="{{ request()->routeIs('portfolio.ap') ? 'active' : '' }}">AP</a></li>
+            <li><a href="{{ route('portfolio.stages') }}" class="{{ request()->routeIs('portfolio.stages') ? 'active' : '' }}">Expériences Pro</a></li>
+            <li><a href="{{ route('portfolio.ap') }}" class="{{ request()->routeIs('portfolio.ap') ? 'active' : '' }}">Ateliers Pro</a></li>
             <li><a href="{{ route('portfolio.etudes') }}" class="{{ request()->routeIs('portfolio.etudes') ? 'active' : '' }}">Mes études</a></li>
             <li><a href="{{ route('portfolio.contact') }}" class="{{ request()->routeIs('portfolio.contact') ? 'active' : '' }}">Contact</a></li>
         </ul>

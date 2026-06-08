@@ -17,18 +17,18 @@
         <div class="filters-left">
             <select name="type" class="filter-select-pub" id="filter-type" onchange="onTypeChange(this)">
                 <option value="">Tous les types</option>
-                <option value="stage"  {{ request('type') == 'stage'  ? 'selected' : '' }}>Stage</option>
-                <option value="ap"     {{ request('type') == 'ap'     ? 'selected' : '' }}>AP</option>
+                <option value="stage"  {{ request('type') == 'stage'  ? 'selected' : '' }}>Expérience Pro</option>
+                <option value="ap"     {{ request('type') == 'ap'     ? 'selected' : '' }}>Atelier Pro</option>
                 <option value="projet" {{ request('type') == 'projet' ? 'selected' : '' }}>Projet perso</option>
             </select>
 
             <select name="stage_id" id="filter-stage" class="filter-select-pub"
                 onchange="this.form.submit()"
                 style="{{ request('type') == 'stage' ? '' : 'display:none' }}">
-                <option value="">Tous les stages</option>
+                <option value="">Toutes les expériences</option>
                 @foreach($stages as $i => $s)
                     <option value="{{ $s->id }}" {{ request('stage_id') == $s->id ? 'selected' : '' }}>
-                        Stage {{ $i + 1 }} — {{ $s->entreprise }}
+                        Expérience {{ $i + 1 }} — {{ $s->entreprise }}
                     </option>
                 @endforeach
             </select>

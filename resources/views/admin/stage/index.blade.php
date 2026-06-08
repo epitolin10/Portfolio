@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('page-title', 'Gestion des Stages')
+@section('page-title', 'Gestion des Expériences Pro')
 
 @section('content')
 

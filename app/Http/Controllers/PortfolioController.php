@@ -22,6 +22,7 @@ class PortfolioController extends Controller
 
         $nbActivites   = Activite::visible()->count();
         $nbStages      = Stage::count();
+        $nbCompetences = CompetenceAcquise::count();
 
         $competencesAcquises = CompetenceAcquise::orderBy('categorie')
             ->orderBy('ordre')
@@ -32,7 +33,7 @@ class PortfolioController extends Controller
 
         return view('index', compact(
             'profil', 'activitesRecentes',
-            'nbActivites', 'nbStages',
+            'nbActivites', 'nbStages', 'nbCompetences',
             'competencesAcquises', 'etudes'
         ));
     }

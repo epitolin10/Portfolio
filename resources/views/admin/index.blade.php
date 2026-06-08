@@ -9,8 +9,8 @@
         <input type="text" id="searchInput" placeholder="Rechercher une activité..." class="search-input">
         <select id="filterType" class="filter-select">
             <option value="">Tous les types</option>
-            <option value="stage">Stage</option>
-            <option value="ap">AP</option>
+            <option value="stage">Expérience Pro</option>
+            <option value="ap">Atelier Pro</option>
             <option value="projet">Projet perso</option>
         </select>
     </div>
@@ -25,7 +25,7 @@
             <tr>
                 <th>Titre</th>
                 <th>Type</th>
-                <th>Stage / AP</th>
+                <th>Exp. Pro / Atelier</th>
                 <th>Date</th>
                 <th>Visible</th>
                 <th>Actions</th>
